@@ -1,11 +1,15 @@
 # music-notes-shifter
 A quick and easy music notes shifter
 
+## Deployement
+https://rigwild.github.io/music-notes-shifter/
+
 ## License
+```
            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
                    Version 2, December 2004
 
-Copyright (C) 2004 Sam Hocevar <sam@hocevar.net>
+Copyright (C) 2019 rigwild
 
 Everyone is permitted to copy and distribute verbatim or modified
 copies of this license document, and changing it is allowed as long
@@ -15,4 +19,5 @@ as the name is changed.
   TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
 
  0. You just DO WHAT THE FUCK YOU WANT TO.
+```
 
