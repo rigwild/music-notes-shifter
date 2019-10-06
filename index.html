@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Notes shifter</title>
+  <style>
+    * {
+      font-family: Arial, Helvetica, sans-serif;
+      box-sizing: border-box;
+      overflow-y: hidden;
+    }
+    body {
+      background-color: #525252;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      color: white;
+      font-size: 25px;
+    }
+    .container {
+      width: 650px;
+      text-align: center;
+    }
+    .container > div {
+      margin: 10px 0px;
+    }
+    label {
+      margin: 10px 0;
+    }
+    #notes {
+      display: flex;
+      justify-content: space-evenly;
+    }
+    #notes > select {
+      margin-top: 10px;
+      font-size: 20px;
+      border-radius: 50%;
+      width: 75px;
+      height: 75px;
+      text-align: center;
+      border: none;
+      padding: 10px;
+      text-align-last: center;
+    }
+    #shift {
+      font-size: 20px;
+      padding: 0;
+      margin: 0;
+      text-align: center;
+      width: 75px;
+      height: 75px;
+      border: none;
+      border-radius: 50%;
+    }
+    #notes > select:focus, #shift:focus {
+      background-color: #88effd;
+    }
+    .shiftBlock > label {
+      margin-bottom: 10px;
+      display: block;
+    }
+    .outputBlock label{
+      display: block;
+      margin-top: 60px;
+    }
+    #output {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    #output > .output-note {
+      padding: 10px;
+      background-color: white;
+      margin: 10px;
+      color: black;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Notes shifter</h2>
+    
+    <div class="noteBlock">
+      <label>Notes to play</label>
+      <div id="notes"></div>
+    </div>
+    
+    <div class="shiftBlock">
+      <label>Shift</label>
+      <input id="shift" type="number" value="5" />
+    </div>
+    
+    <div class="outputBlock">
+      <label>Result</label>
+      <div id="output"></div>
+    </div>
+  </div>
+
+<script type="text/javascript">
+// Available notes
+const notes = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'B']
+
+// Updates the output result
+const eventHandler = () => {
+  const selectedNotes = Array.from(document.querySelectorAll('select')).map(x => x.value)
+  const selectedShift = parseInt(document.getElementById('shift').value, 10)
+  const result = converter(selectedShift, selectedNotes)
+
+  // Render the output
+  Array.from(document.querySelectorAll('.output-note')).forEach((x, i) => x.innerHTML = result[i])
+  console.log(result)
+}
+
+// Render the page's selects and output blocs
+const renderPage = amount => {
+  for (let i = 0; i < amount; i++) {
+    // Create the selects
+    let aNoteSelect = document.createElement('select')
+    notes.forEach(x => {
+      let option = document.createElement('option')
+      option.value = x
+      option.text = x
+      aNoteSelect.appendChild(option)
+    })
+    document.getElementById('notes').append(aNoteSelect)    
+
+    // Create output blocks
+    let aOutputBlock = document.createElement('div')
+    aOutputBlock.classList.add('output-note')
+    document.getElementById('output').append(aOutputBlock)    
+  }
+  // Generate default results
+  eventHandler()
+}
+
+// Custom modulo to also handle negative numbers
+function mod(n, m) { return ((n % m) + m) % m }
+// Do the notes convertion
+const converter = (shift, toPlay) => toPlay.map(x => notes[mod(notes.indexOf(x) + shift,notes.length)])
+
+
+// Inject the selects in the page
+const numbersOfNotesMaxToPlay = 7
+renderPage(numbersOfNotesMaxToPlay)
+
+// Apply event listeners handlers
+document.getElementById('shift').addEventListener('change', eventHandler)
+Array.from(document.querySelectorAll('select')).forEach(x => x.addEventListener('change', eventHandler))
+</script>
+</body>
+</html>
