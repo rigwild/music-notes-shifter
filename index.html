@@ -139,7 +139,7 @@ const renderPage = amount => {
   eventHandler()
 }
 
-// Custom modulo to also handle negative numbers
+// Custom modulo to handle negative numbers too
 function mod(n, m) { return ((n % m) + m) % m }
 // Do the notes convertion
 const converter = (shift, toPlay) => toPlay.map(x => notes[mod(notes.indexOf(x) + shift,notes.length)])
